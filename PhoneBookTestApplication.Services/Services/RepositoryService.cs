@@ -8,7 +8,7 @@ namespace PhoneBookTestApplication.Services
 	{
 		#region Properties
 
-		public List<PersonModel> Persons { get; set; }
+		public IList<PersonModel> Persons { get; set; } = new List<PersonModel>();
 
 		#endregion
 
@@ -45,7 +45,7 @@ namespace PhoneBookTestApplication.Services
 
 		#region Methods
 
-		public List<PersonModel> GetAllPersons()
+		public IList<PersonModel> GetAllPersons()
 		{
 			return Persons;
 		}

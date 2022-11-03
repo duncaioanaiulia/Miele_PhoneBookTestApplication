@@ -30,7 +30,7 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 
 		#region Methods
 
-		public List<PersonModel> GetAllPersons()
+		public IList<PersonModel> GetAllPersons()
 		{
 			return _repositoryService.GetAllPersons();
 		}
