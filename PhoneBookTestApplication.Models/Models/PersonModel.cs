@@ -28,7 +28,7 @@ namespace PhoneBookTestApplication.Models
 		// at least one is mandatory
 		public List<AddressModel> Addresses { get; set; }
 
-		// not mandatory
-		//TODO Birthdate
-	}
+        // not mandatory
+        public DateTime? Birthday { get; set; } 
+    }
 }
