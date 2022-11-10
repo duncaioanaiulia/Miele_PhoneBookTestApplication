@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PhoneBookTestApplication.Models;
 using PhoneBookTestApplication.ViewModels.ViewModels;
@@ -10,13 +11,20 @@ namespace PhoneBookTestApplication
 	{
 		private static PersonViewModel _personViewModel;
 
-		public static void Main(string[] args)
+		private const string commandList = "list";
+		private const string commandAdd = "add";
+		private const string commandRemove = "remove";
+
+        public static void Main(string[] args)
 		{
 			_personViewModel = new PersonViewModel();
 
 			var test = _personViewModel.GetAllPersons();
-
-            Console.WriteLine("Available commands: \n list \n add (Person) \n remove (Person Name) \n command example: add Ionica|Popescu|Crisului|6|||1|0742131415");
+				//  "Available commands: \n  {0} \n {1} (Person) \n {2} (Person Name) \n command example: add Ionica|Popescu|Crisului|6|||1|0742131415"
+            
+            Console.WriteLine(string.Format(
+				  "Available commands: \n  {0}\n {1}\n {2}"
+				  , commandList, commandAdd, commandRemove));
 
 			while (true)
 			{
@@ -29,32 +37,51 @@ namespace PhoneBookTestApplication
 
 		private static void ParseCommand(string command)
 		{
-			switch (command)
-			{
-				case ("list"):
-					{
-						var persons = _personViewModel.GetAllPersons();
 
+            var persons = _personViewModel.GetAllPersons();
+
+            switch (command)
+			{
+				case (commandList):
+					{
 						foreach (var person in persons)
 						{
 							StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.Append(person.PersonId);
+                            stringBuilder.Append(" ");
                             stringBuilder.Append(person.FirstName);
 							stringBuilder.Append(" ");
 							stringBuilder.Append(person.LastName);
 							stringBuilder.Append(",");
-
-
                             Console.WriteLine(stringBuilder.ToString());
 						}
 
 						break;
 					}
-				// TODO implement the add and remove command parsings (also make checks that the user does not enter
-				// faulty data and the mandatory fields are filled in)
-				default:
+                case (commandRemove):
+					{
+                        Console.WriteLine("Insert name:");
+                        ParseRemoveCommand(Console.ReadLine(), persons);
+						break;
+                    }
+                // TODO implement the add and remove command parsings (also make checks that the user does not enter
+                // faulty data and the mandatory fields are filled in)
+                default:
 					break;
 			}
 
 		}
+
+		private static void ParseRemoveCommand(string command, IList<PersonModel> persons)
+		{
+			var removePerson = persons.FirstOrDefault(person
+				=> command.Contains(person.FirstName) 
+				&& command.Contains(person.LastName));
+
+			if (removePerson is null)
+				return;
+
+			_personViewModel.RemovePerson(removePerson.PersonId);
+        }
 	}
 }

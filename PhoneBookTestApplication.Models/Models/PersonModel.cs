@@ -6,21 +6,8 @@ namespace PhoneBookTestApplication.Models
 {
 	public class PersonModel
 	{
-		public PersonModel()
-		{
-            PersonId++;
-        }
-
-		private static int personID = 0;
-
-		// mandatory
-		public int PersonId { 
-			get => personID;
-			private set => personID++; 
-		}
-
-		// mandatory
-		public string FirstName { get; set; }
+        public int PersonId { get; set; }
+        public string FirstName { get; set; }
 
 		// mandatory
 		public string LastName { get; set; }

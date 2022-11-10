@@ -19,6 +19,7 @@ namespace PhoneBookTestApplication.Services
 			Persons.Add(
 				new PersonModel
 				{
+					PersonId = 9,
 					FirstName = "Ionica",
 					LastName = "Popescu",
 					Addresses = new List<AddressModel>
@@ -37,10 +38,11 @@ namespace PhoneBookTestApplication.Services
 						}
 					}
 				}
-				});
+				}); ;
             Persons.Add(
         new PersonModel
         {
+			PersonId = 8,
             FirstName = "test",
             LastName = "test",
             Addresses = new List<AddressModel>
