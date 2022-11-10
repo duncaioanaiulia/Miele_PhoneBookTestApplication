@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using PhoneBookTestApplication.Models;
 using PhoneBookTestApplication.ViewModels.ViewModels;
 
 namespace PhoneBookTestApplication
@@ -11,7 +14,9 @@ namespace PhoneBookTestApplication
 		{
 			_personViewModel = new PersonViewModel();
 
-			Console.WriteLine("Available commands: \n list \n add (Person) \n remove (Person Name) \n command example: add Ionica|Popescu|Crisului|6|||1|0742131415");
+			var test = _personViewModel.GetAllPersons();
+
+            Console.WriteLine("Available commands: \n list \n add (Person) \n remove (Person Name) \n command example: add Ionica|Popescu|Crisului|6|||1|0742131415");
 
 			while (true)
 			{
@@ -32,8 +37,14 @@ namespace PhoneBookTestApplication
 
 						foreach (var person in persons)
 						{
-							// TODO override ToString to show the actual list of persons
-							Console.WriteLine(person.ToString());
+							StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.Append(person.FirstName);
+							stringBuilder.Append(" ");
+							stringBuilder.Append(person.LastName);
+							stringBuilder.Append(",");
+
+
+                            Console.WriteLine(stringBuilder.ToString());
 						}
 
 						break;

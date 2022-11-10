@@ -19,7 +19,6 @@ namespace PhoneBookTestApplication.Services
 			Persons.Add(
 				new PersonModel
 				{
-					PersonId = 1,
 					FirstName = "Ionica",
 					LastName = "Popescu",
 					Addresses = new List<AddressModel>
@@ -39,7 +38,29 @@ namespace PhoneBookTestApplication.Services
 					}
 				}
 				});
-		}
+            Persons.Add(
+        new PersonModel
+        {
+            FirstName = "test",
+            LastName = "test",
+            Addresses = new List<AddressModel>
+        {
+                    new AddressModel
+                    {
+                        StreetName = "test",
+                        StreetNumber = 6,
+                        PhoneNumbers = new List<PhoneNumberModel>
+                        {
+                            new PhoneNumberModel
+                            {
+                                PhoneType = Models.Enums.PhoneTypeEnum.Personal,
+                                PhoneNumber = "4532642645"
+                            }
+                        }
+                    }
+        }
+        });
+        }
 
 		#endregion
 
