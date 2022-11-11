@@ -58,19 +58,49 @@ namespace PhoneBookTestApplication
 
 						break;
 					}
+                case (commandAdd):
+                    {
+                        Console.WriteLine("Insert example: Ionica|Popescu|Crisului|6|||1|0742131415");
+                        ParseAddCommand(Console.ReadLine());
+                        break;
+                    }
                 case (commandRemove):
-					{
+                    {
                         Console.WriteLine("Insert name:");
                         ParseRemoveCommand(Console.ReadLine(), persons);
-						break;
+
+                        break;
                     }
-                // TODO implement the add and remove command parsings (also make checks that the user does not enter
-                // faulty data and the mandatory fields are filled in)
                 default:
 					break;
 			}
-
 		}
+
+		private static void ParseAddCommand(string command)
+		{
+            List<string> detailsPerson = command.Split("|").ToList();
+			if (detailsPerson is null)
+				return;
+
+			_personViewModel.Person =
+				new PersonModel()
+				{
+					FirstName = detailsPerson.ElementAt(0),
+					LastName = detailsPerson.ElementAt(1)
+                };
+
+			_personViewModel.Person.Addresses.Add(new AddressModel()
+			{
+				StreetName = detailsPerson.ElementAt(2),
+				StreetNumber = int.Parse(detailsPerson.ElementAt(3)),
+				Country = detailsPerson.ElementAt(4)
+
+
+				//PhoneNumbers
+			});
+
+            _personViewModel.AddPerson();
+        }
 
 		private static void ParseRemoveCommand(string command, IList<PersonModel> persons)
 		{

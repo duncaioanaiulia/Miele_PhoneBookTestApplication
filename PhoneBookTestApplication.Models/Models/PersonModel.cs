@@ -13,7 +13,7 @@ namespace PhoneBookTestApplication.Models
 		public string LastName { get; set; }
 
 		// at least one is mandatory
-		public List<AddressModel> Addresses { get; set; }
+		public IList<AddressModel> Addresses { get; set; } = new List<AddressModel>();
 
         // not mandatory
         public DateTime? Birthday { get; set; } 

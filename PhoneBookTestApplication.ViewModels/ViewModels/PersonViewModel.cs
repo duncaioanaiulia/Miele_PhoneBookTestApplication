@@ -44,10 +44,8 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 		private static int lastPersonId = 0;
 		public void AddPerson()
 		{
-
-            // TODO check if person object is valid and has all mandatory fields
-            Person.PersonId = lastPersonId;
-			lastPersonId++;
+			// TODO check if person object is valid and has all mandatory fields
+			Person.PersonId = GetAllPersons().Count;
             _repositoryService.AddPerson(Person);
 		}
 

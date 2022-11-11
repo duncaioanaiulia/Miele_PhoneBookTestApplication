@@ -19,7 +19,7 @@ namespace PhoneBookTestApplication.Services
 			Persons.Add(
 				new PersonModel
 				{
-					PersonId = 9,
+					PersonId = 0,
 					FirstName = "Ionica",
 					LastName = "Popescu",
 					Addresses = new List<AddressModel>
@@ -42,7 +42,7 @@ namespace PhoneBookTestApplication.Services
             Persons.Add(
         new PersonModel
         {
-			PersonId = 8,
+			PersonId = 1,
             FirstName = "test",
             LastName = "test",
             Addresses = new List<AddressModel>
