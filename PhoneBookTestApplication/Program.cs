@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PhoneBookTestApplication.Models;
+using PhoneBookTestApplication.Models.Enums;
 using PhoneBookTestApplication.ViewModels.ViewModels;
 
 namespace PhoneBookTestApplication
@@ -52,7 +53,8 @@ namespace PhoneBookTestApplication
                             stringBuilder.Append(person.FirstName);
 							stringBuilder.Append(" ");
 							stringBuilder.Append(person.LastName);
-							stringBuilder.Append(",");
+							stringBuilder.Append(", ");
+                            stringBuilder.Append(person.Addresses.First().PhoneNumbers.First().PhoneNumber);
                             Console.WriteLine(stringBuilder.ToString());
 						}
 
@@ -60,7 +62,7 @@ namespace PhoneBookTestApplication
 					}
                 case (commandAdd):
                     {
-                        Console.WriteLine("Insert example: Ionica|Popescu|Crisului|6|||1|0742131415");
+                        Console.WriteLine("Insert example: Ionica|Popescu|Crisului|6|Iasi|Ro|Personal/Work|0742131415");
                         ParseAddCommand(Console.ReadLine());
                         break;
                     }
@@ -93,13 +95,16 @@ namespace PhoneBookTestApplication
 			{
 				StreetName = detailsPerson.ElementAt(2),
 				StreetNumber = int.Parse(detailsPerson.ElementAt(3)),
-				Country = detailsPerson.ElementAt(4)
-
-
-				//PhoneNumbers
-			});
-
-            _personViewModel.AddPerson();
+				City = detailsPerson.ElementAt(4),
+				Country = detailsPerson.ElementAt(5)
+			}) ;
+			_personViewModel.Person.Addresses.First().PhoneNumbers.Add(
+				new PhoneNumberModel()
+				{
+					PhoneType = (PhoneTypeEnum)Enum.Parse(typeof(PhoneTypeEnum), detailsPerson.ElementAt(6)),
+					PhoneNumber = detailsPerson.ElementAt(7)
+				});
+            _personViewModel.AddOrEditPerson();
         }
 
 		private static void ParseRemoveCommand(string command, IList<PersonModel> persons)

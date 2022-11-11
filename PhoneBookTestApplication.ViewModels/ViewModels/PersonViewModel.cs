@@ -42,17 +42,26 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 		}
 
 		private static int lastPersonId = 0;
-		public void AddPerson()
+		public void AddOrEditPerson()
 		{
 			// TODO check if person object is valid and has all mandatory fields
-			Person.PersonId = GetAllPersons().Count;
+			var allPersons = GetAllPersons();
+			bool personExist = allPersons.Any(p=>
+					p.LastName == Person.LastName 
+					&& p.FirstName == Person.FirstName);
+			if (personExist)
+			{
+                _repositoryService.EditPerson(Person);
+				return;
+            }
+            Person.PersonId = allPersons.Count;
             _repositoryService.AddPerson(Person);
 		}
 
 		public void RemovePerson(int idPerson)
 		{
 			var removePerson = GetAllPersons()
-									.First(person => person.PersonId == idPerson);
+									.Single(person => person.PersonId == idPerson);
 
 			if (removePerson is null)
 				return; 

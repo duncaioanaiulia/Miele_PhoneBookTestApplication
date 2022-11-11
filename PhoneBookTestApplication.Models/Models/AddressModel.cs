@@ -18,6 +18,6 @@ namespace PhoneBookTestApplication.Models
 		public string Country { get; set; }
 
 		// at least one is mandatory
-		public List<PhoneNumberModel> PhoneNumbers { get; set; }
+		public IList<PhoneNumberModel> PhoneNumbers { get; set; } = new List<PhoneNumberModel>();
 	}
 }

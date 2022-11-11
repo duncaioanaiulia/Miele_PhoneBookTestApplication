@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PhoneBookTestApplication.Models;
 
 namespace PhoneBookTestApplication.Services
@@ -77,9 +78,15 @@ namespace PhoneBookTestApplication.Services
 		{
 			Persons.Add(person);
 		}
+        public void EditPerson(PersonModel newPerson)
+        {
+			var oldPerson = Persons.SingleOrDefault(p=>p.PersonId == newPerson.PersonId);
+            var index = Persons.IndexOf(oldPerson);
+			Persons[index] = newPerson;
+        }
 
-		// TODO change the person parameter to just accept the id
-		public void RemovePerson(PersonModel person)
+        // TODO change the person parameter to just accept the id
+        public void RemovePerson(PersonModel person)
 		{
 			Persons.Remove(person);
 		}
