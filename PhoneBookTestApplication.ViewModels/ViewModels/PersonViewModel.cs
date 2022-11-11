@@ -69,6 +69,11 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
             _repositoryService.RemovePerson(removePerson);
 		}
 
+		public IList<PersonModel> SearchPerson(string firstName, string lastName)
+		{
+			return _repositoryService.SearchPerson(firstName, lastName);
+		}
+
 		#endregion
 	}
 }
