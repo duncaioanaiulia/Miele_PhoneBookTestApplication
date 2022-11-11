@@ -118,7 +118,7 @@ namespace PhoneBookTestApplication
 		{
             List<string> detailsPerson = command.Split(" ").ToList();
 
-			if(detailsPerson.Count() <2 )
+			if(detailsPerson.Count <2 )
 			{
                 Console.WriteLine("Enter First Name AND Last Name");
                 ParseCommand(commangSearch);
