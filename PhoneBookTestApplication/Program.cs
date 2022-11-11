@@ -75,8 +75,12 @@ namespace PhoneBookTestApplication
 		private static void ParseAddCommand(string command)
 		{
             List<string> detailsPerson = command.Split("|").ToList();
-			if (detailsPerson is null)
+			if (detailsPerson is null || detailsPerson.Count<8)
+			{
+				Console.WriteLine("Please fill all the mandatory data!!");
+				ParseCommand(commandAdd);
 				return;
+			}
 
 			_personViewModel.Person =
 				new PersonModel()

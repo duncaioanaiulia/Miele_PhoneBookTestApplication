@@ -91,13 +91,7 @@ namespace PhoneBookTestApplication.Services
 			Persons.Remove(person);
 		}
 
-		public IList<PersonModel> SearchPerson(string firstName, string lastName)
-		{
-            var searchedPerson = Persons.Where(p => p.FirstName == firstName
-                                        && p.LastName == lastName)
-										.ToList();
-            return searchedPerson;
-        }
+	
 
 		#endregion
 	}

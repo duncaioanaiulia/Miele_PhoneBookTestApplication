@@ -1,21 +1,33 @@
-﻿using System;
+﻿using PhoneBookTestApplication.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace PhoneBookTestApplication.Services
 {
 	public class FilterService
 	{
-		#region Constructor
+        #region Constructor
 
-		public FilterService() { }
+        private IList<PersonModel> _persons;
+
+        public FilterService(IList<PersonModel> persons) 
+        {
+            this._persons = persons;
+        }
 
 		#endregion
 
 		#region Methods
 
-		public void GetPersonsByName(string name)
+		public IList<PersonModel> GetPersonsByName(string firstName, string lastName)
 		{
-			// TODO implement filter list by name
-		}
+            var searchedPerson = _persons.Where(p => p.FirstName == firstName
+                                     && p.LastName == lastName)
+                                     .ToList();
+            return searchedPerson;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

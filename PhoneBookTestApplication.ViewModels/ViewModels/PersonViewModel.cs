@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using PhoneBookTestApplication.Models;
 using PhoneBookTestApplication.Services;
 
@@ -11,6 +12,7 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 		#region Fields
 
 		private RepositoryService _repositoryService;
+		private FilterService _filterService;
 
 		#endregion
 
@@ -25,7 +27,9 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 		public PersonViewModel()
 		{
 			_repositoryService = new RepositoryService();
-		}
+            _filterService = new FilterService(GetAllPersons());
+
+        }
 
 		#endregion
 
@@ -71,7 +75,7 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 
 		public IList<PersonModel> SearchPerson(string firstName, string lastName)
 		{
-			return _repositoryService.SearchPerson(firstName, lastName);
+			return _filterService.GetPersonsByName(firstName, lastName);
 		}
 
 		#endregion
