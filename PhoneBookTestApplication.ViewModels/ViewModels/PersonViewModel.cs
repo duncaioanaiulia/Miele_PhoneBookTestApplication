@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using PhoneBookTestApplication.Models;
 using PhoneBookTestApplication.Services;
+using PhoneBookTestApplication.Services.Interfaces;
 
 namespace PhoneBookTestApplication.ViewModels.ViewModels
 {
@@ -11,8 +12,8 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 	{
 		#region Fields
 
-		private RepositoryService _repositoryService;
-		private FilterService _filterService;
+		private IRepositoryService _repositoryService;
+		private IFilterService _filterService;
 
 		#endregion
 
@@ -28,7 +29,6 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 		{
 			_repositoryService = new RepositoryService();
             _filterService = new FilterService(GetAllPersons());
-
         }
 
 		#endregion
@@ -40,12 +40,6 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 			return _repositoryService.GetAllPersons();
 		}
 
-		public void GetPersonsByName(string name)
-		{
-			// TODO implement filter by name
-		}
-
-		private static int lastPersonId = 0;
 		public void AddOrEditPerson()
 		{
 			// TODO check if person object is valid and has all mandatory fields

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using PhoneBookTestApplication.Models;
+using PhoneBookTestApplication.Services.Interfaces;
 
 namespace PhoneBookTestApplication.Services
 {
-	public class RepositoryService
-	{
+	public class RepositoryService : IRepositoryService
+    {
 		#region Properties
 
 		public IList<PersonModel> Persons { get; set; } = new List<PersonModel>();
