@@ -3,48 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using PhoneBookTestApplication.Models;
 using PhoneBookTestApplication.Services.Interfaces;
+using PhoneBookTestApplication.Services.Services;
 
 namespace PhoneBookTestApplication.Services
 {
-	public class RepositoryService : IRepositoryService
+    public class RepositoryService : BaseService, IRepositoryService
     {
-		#region Properties
+        #region Properties
 
-		public IList<PersonModel> Persons { get; set; } = new List<PersonModel>();
+        public IList<PersonModel> Persons { get; set; } = new List<PersonModel>();
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		public RepositoryService()
-		{
-			Persons.Add(
-				new PersonModel
-				{
-					PersonId = 0,
-					FirstName = "Ionica",
-					LastName = "Popescu",
-					Addresses = new List<AddressModel>
-				{
-					new AddressModel
-					{
-						StreetName = "Crisului",
-						StreetNumber = 6,
-						PhoneNumbers = new List<PhoneNumberModel>
-						{
-							new PhoneNumberModel
-							{
-								PhoneType = Models.Enums.PhoneTypeEnum.Personal,
-								PhoneNumber = "0742131415"
-							}
-						}
-					}
-				}
-				}); ;
+        public RepositoryService()
+        {
+            Persons.Add(
+                new PersonModel
+                {
+                    PersonId = 0,
+                    FirstName = "Ionica",
+                    LastName = "Popescu",
+                    Addresses = new List<AddressModel>
+                {
+                    new AddressModel
+                    {
+                        StreetName = "Crisului",
+                        StreetNumber = 6,
+                        PhoneNumbers = new List<PhoneNumberModel>
+                        {
+                            new PhoneNumberModel
+                            {
+                                PhoneType = Models.Enums.PhoneTypeEnum.Personal,
+                                PhoneNumber = "0742131415"
+                            }
+                        }
+                    }
+                }
+                }); ;
             Persons.Add(
         new PersonModel
         {
-			PersonId = 1,
+            PersonId = 1,
             FirstName = "test",
             LastName = "test",
             Addresses = new List<AddressModel>
@@ -66,34 +67,49 @@ namespace PhoneBookTestApplication.Services
         });
         }
 
-		#endregion
+        #endregion
 
-		#region Methods
+        #region Methods
 
-		public IList<PersonModel> GetAllPersons()
-		{
-			return Persons;
-		}
-
-		public void AddPerson(PersonModel person)
-		{
-			Persons.Add(person);
-		}
-        public void EditPerson(PersonModel newPerson)
+        public IList<PersonModel> GetAllPersons()
         {
-			var oldPerson = Persons.SingleOrDefault(p=>p.PersonId == newPerson.PersonId);
-            var index = Persons.IndexOf(oldPerson);
-			Persons[index] = newPerson;
+            return Persons;
         }
 
-        // TODO change the person parameter to just accept the id
+        public void AddPerson(PersonModel person)
+        {
+            Persons.Add(person);
+        }
+
+        public void EditPerson(PersonModel newPerson)
+        {
+            ExceptionHandlingAsync(() =>
+            {
+                var oldPerson = Persons.SingleOrDefault(p => p.PersonId == newPerson.PersonId);
+                var index = Persons.IndexOf(oldPerson);
+                Persons[index] = newPerson;
+            });
+        }
+
         public void RemovePerson(PersonModel person)
-		{
-			Persons.Remove(person);
-		}
+        {
+            ExceptionHandlingAsync(() =>
+            {
+                Persons.Remove(person);
 
-	
+            });
+        }
 
-		#endregion
-	}
+        public void ThrowException()
+        {
+            ExceptionHandlingAsync(() =>
+            {
+                throw new Exception($"Test Exception");
+            });
+        }
+
+
+
+        #endregion
+    }
 }

@@ -17,17 +17,17 @@ namespace PhoneBookTestApplication
 		private const string commandAdd = "add";
 		private const string commandRemove = "remove";
 		private const string commangSearch = "search";
+        private const string commangException = "throw exception";
 
         public static void Main(string[] args)
 		{
 			_personViewModel = new PersonViewModel();
 
 			var test = _personViewModel.GetAllPersons();
-				//  "Available commands: \n  {0} \n {1} (Person) \n {2} (Person Name) \n command example: add Ionica|Popescu|Crisului|6|||1|0742131415"
             
             Console.WriteLine(string.Format(
-				  "Available commands: \n{0}\n{1}\n{2}\n{3}", 
-				  commandList, commandAdd, commandRemove, commangSearch));
+				  "Available commands: \n{0}\n{1}\n{2}\n{3}\n{4}\n", 
+				  commandList, commandAdd, commandRemove, commangSearch, commangException));
 
 			while (true)
 			{
@@ -65,6 +65,11 @@ namespace PhoneBookTestApplication
 					{
                         Console.WriteLine("Search name:");
                         ParseSearchCommand(Console.ReadLine());
+                        break;
+					}
+				case (commangException):
+					{
+						_personViewModel.ThrowException();
                         break;
 					}
                 default:
@@ -108,6 +113,9 @@ namespace PhoneBookTestApplication
 
         private static void ParseRemoveCommand(string command, IList<PersonModel> persons)
         {
+			if (!persons.Any())
+				return;
+
             var removePerson = persons.FirstOrDefault(person
                 => command.Contains(person.FirstName)
                 && command.Contains(person.LastName));

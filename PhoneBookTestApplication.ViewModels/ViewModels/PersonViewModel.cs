@@ -42,7 +42,6 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 
 		public void AddOrEditPerson()
 		{
-			// TODO check if person object is valid and has all mandatory fields
 			var allPersons = GetAllPersons();
 			bool personExist = allPersons.Any(p=>
 					p.LastName == Person.LastName 
@@ -72,6 +71,11 @@ namespace PhoneBookTestApplication.ViewModels.ViewModels
 			return _filterService.GetPersonsByName(firstName, lastName);
 		}
 
-		#endregion
-	}
+        public void ThrowException()
+        {
+            _repositoryService.ThrowException();
+        }
+
+        #endregion
+    }
 }

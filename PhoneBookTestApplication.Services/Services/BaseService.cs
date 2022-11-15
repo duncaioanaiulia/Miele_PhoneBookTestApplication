@@ -8,18 +8,20 @@ namespace PhoneBookTestApplication.Services.Services
 {
     public class BaseService
     {
-        public async Task<string> RequestRemoteAsync(Action requestAsync)
+        public async Task<bool> ExceptionHandlingAsync(Action requestAsync)
         {
             if (requestAsync == null)
                 throw new ArgumentNullException(nameof(requestAsync));
             try
             {
                 await Task.Run(requestAsync);
-                return string.Empty;
+                return true;
             }
             catch (Exception ex)
             {
-                return ex.ToString();
+                Console.WriteLine($"\tIn the log routine. Caught {ex.GetType()}");
+                Console.WriteLine($"\tMessage: {ex.Message}");
+                return false;
             }
         }
     }
